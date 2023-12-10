@@ -1,0 +1,122 @@
+\documentclass{article}
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+\usepackage{CJK}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\newcommand{\Class}{Part 1 of Project 2}
+
+% Homework Specific Information. Change it to your own
+\newcommand{\Title}{Part 2 proposal}
+
+% In case you need to adjust margins:
+\topmargin=-0in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.1in         %
+
+% Setup the header and footer
+\pagestyle{fancy}                                               %
+\chead{\Title}  %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+	\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+	\nobreak\extramarks{#1}{}\nobreak}%
+
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+{\stepcounter{homeworkProblemCounter}%
+	\renewcommand{\homeworkProblemName}{#1}%
+	\section*{\homeworkProblemName}%
+	\enterProblemHeader{\homeworkProblemName}}%
+{\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+{% We put this space here to make sure we're not connected to the above.
+	
+	\renewcommand{\homeworkSectionName}{#1}%
+	\settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+	\addtolength{\homeworkSectionLabelLength}{0.25in}%
+	\changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+	\subsection*{\homeworkSectionName}%
+	\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+{\enterProblemHeader{\homeworkProblemName}%
+	
+	% We put the blank space above in order to make sure this margin
+	% change doesn't happen too soon.
+	\changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\Answer}{\ \\\textbf{Answer:} }
+\newcommand{\Acknowledgement}[1]{\ \\{\bf Acknowledgement:} #1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{-1.5in}\textmd{\bf \Class: \Title}\\ \normalsize}
+\date{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+	\begin{spacing}{1.1}
+		\maketitle \thispagestyle{empty}
+		%\cite{}
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		% Begin edit from here
+\section{Merkle Tree}
+	We propose the integration of Merkle trees into our project 2 to enhance data integrity, facilitate efficient transaction verification, and improve overall security. Merkle trees provide a compact and secure way to represent the transaction history within each block.
+\subsection{Method}
+	\textbf{Merkle Tree for Transaction Integrity:} Utilize a Merkle tree structure to organize and verify the integrity of transactions within each block. This ensures that any alteration or corruption of a single transaction is quickly detectable through the Merkle tree.
+\subsection{Metric}
+	\textbf{Transaction Verification Speed:} Measure the speed at which nodes can verify transactions using Merkle proofs compared to traditional methods.
+\subsection{Implementation Plan}
+	\textbf{Code Integration:} Implement the necessary changes to integrate Merkle trees into the existing blockchain codebase.\\
+	\textbf{Testing and Validation:} Conduct thorough testing to ensure the correct functioning of Merkle tree integration and validate its impact on transaction verification speed,
+
+\section{Dynamic list for disseminating information(Broadcast)}
+	We propose the implementation of a dynamic peer list to enhance the flexibility and scalability of our blockchain network. This improvement aims to facilitate dynamic peer discovery, adapt to changing network conditions, and optimize the dissemination of transactions and block data.
+\subsection{Method}
+Use the protocol in P2P network, when a new node wants to join in the network, it asks its neighbor to get the address of their neighbors, and add them
+to its address list, and so on.
+
+\section{Remove one assumption}
+In Part I, we assume that miner does not include transactinos that can not be done in its own UTXO set. Actually, malicious miner can do this and we
+should detect it and drop the block(chain).
+\subsection{Implementation Plan}
+It is easy in one block case. In chain case (which happens when there's fork), the miner should undo its own different blocks and redo the longer 
+chain from another miner. In the redo process, verify every transaction in these blocks to check whether they can be done in its own UTXO set.
+\\
+To test this, we design a malicious miner and see if the chain or block will be dropped by other miners.
+
+\section{Optimize the process of handling fork}
+For now, we send the whole chain to miner when miner receive a block that has greater ID and cannot be added to its chain.
+The cost is very high when there are many miners and blocks.
+\subsection{Method}
+Only send the different part. This needs interaction between the two miners.
+\end{spacing}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
