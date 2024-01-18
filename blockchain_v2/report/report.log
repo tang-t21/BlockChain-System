@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.9.20)  10 DEC 2023 08:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.9.20)  18 JAN 2024 13:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -430,29 +430,44 @@ LaTeX Warning: No \author given.
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-
+<./Merkel-Tree.png, id=17, 473.26813pt x 227.34938pt>
+File: ./Merkel-Tree.png Graphic file (type png)
+<use ./Merkel-Tree.png>
+Package pdftex.def Info: ./Merkel-Tree.png  used on input line 151.
+(pdftex.def)             Requested size: 422.77661pt x 203.10002pt.
+ [3 <./Merkel-Tree.png>]
+<./Exponential-search.png, id=23, 301.62688pt x 234.8775pt>
+File: ./Exponential-search.png Graphic file (type png)
+<use ./Exponential-search.png>
+Package pdftex.def Info: ./Exponential-search.png  used on input line 177.
+(pdftex.def)             Requested size: 422.77661pt x 329.2169pt.
+ 
 AED: lastpage setting LastPage
-[3] (./report.aux) ) 
+[4 <./Exponential-search.png>] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 4156 strings out of 481239
- 51293 string characters out of 5920377
- 296240 words of memory out of 5000000
- 19319 multiletter control sequences out of 15000+600000
- 540818 words of font info for 56 fonts, out of 8000000 for 9000
+ 4185 strings out of 481239
+ 51758 string characters out of 5920377
+ 296259 words of memory out of 5000000
+ 19342 multiletter control sequences out of 15000+600000
+ 543012 words of font info for 67 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  30i,11n,45p,447b,352s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc
-}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr
-/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf/fonts/type1/public
-/cm-super/sfrm1000.pfb>
-Output written on report.pdf (3 pages, 97698 bytes).
+{/usr/share/texmf/fonts/enc/dvip
+s/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf/fonts/type1/public/
+cm-super/sfrm1000.pfb>
+Output written on report.pdf (4 pages, 198775 bytes).
 PDF statistics:
- 43 PDF objects out of 1000 (max. 8388607)
- 30 compressed objects within 1 object stream
+ 67 PDF objects out of 1000 (max. 8388607)
+ 45 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,0 +1,41 @@
+syntax = "proto3";
+option go_package = "./;proto";
+
+package proto;
+
+message Transaction {
+  bytes Stx = 1;
+}
+
+message Block {
+  bytes Sblock = 1;
+  string Addr = 2 ;
+} 
+
+message response {
+  string Result = 1;
+}
+
+message ChainRequest{
+  string Request = 1;
+}
+
+message UtxoRequest{
+  string Request = 1;
+}
+
+message Chain{
+  bytes Schain = 1;
+}
+
+message Utxo{
+  bytes SUtxo = 1;
+}
+
+service BlockChain {
+  rpc GetTransaction(Transaction) returns (response);
+  rpc GetBlock(Block) returns (response);
+  rpc GetBlockChain(ChainRequest) returns (Chain);
+  rpc GetUtxoSet(UtxoRequest) returns (Utxo);
+}
+

@@ -12,10 +12,10 @@
 \usepackage{algorithm}
 \usepackage{algorithmic}
 \usepackage{graphicx}
-\newcommand{\Class}{Project 2}
+\newcommand{\Class}{Distributed System}
 
 % Homework Specific Information. Change it to your own
-\newcommand{\Title}{Part 1}
+\newcommand{\Title}{Project 2 Report}
 
 % In case you need to adjust margins:
 \topmargin=-0.45in      %
@@ -84,7 +84,7 @@
 	\begin{spacing}{1.0}
 		\maketitle \thispagestyle{empty}
 
-		\section{Implementation Details}
+		\section{Part1: Implementation Details}
 		\subsection{Client}
 		The code for \texttt{Client} is mainly in \textit{client.go}, which is acting like an test file. In that file, you will create some \texttt{wallet} and define their actions like ``A transfer AMOUNT to B''.
 		Since our implementation is based on UTXOSet, the transaction should includes multiple \texttt{TxIn} and multiple \texttt{TxOut} (explained later). In our implementation, a wallet will not maintain a 
@@ -130,10 +130,10 @@
 		indeed valid, I will undo the update of UTXOSet of my blocks and the transactions I am current working on. Append your blocks to my chain and update the UTXOSet by the contents. Then we will redo all the transactions undone just now (verify whether they are legal according to current UTXOSet and decide whether to work on it) and further keep on mining.
 
 
-		\section{Attack and Defence}
+		\section{Part1: Attack and Defense}
 		There are several kinds of attack we can defend:
 		\begin{itemize}
-			\item Wallet fake on the amount of Transactions. We will verify the amount of the transaction when the miner get the transaction from the client. If sum(input) < sum(output), it will output ``Not Enough Inputs! Fake Client !!!'' and ignore the transaction.
+			\item Wallet fake on the amount of Transactions. We will verify the amount of the transaction when the miner get the transaction from the client. If sum(input) $<$ sum(output), it will output ``Not Enough Inputs! Fake Client !!!'' and ignore the transaction.
 			\item Wallet fake on the signature. Verified when the miner get the transaction from the client, output `` Wrong Signature! Fake Client !!!'' and ignore the transaction
 			\item Miner fake on ProofOfWork. When a miner get a block from another miner, it will verify its PoW, if fake, raise ``Invalid Block'' and ignore this block.
 			\item Miner fake on PrevHash. When a miner get the blockchain from another miner (want to adopt ``longest chain rule''), it needs to verify that the chain is valid 
@@ -142,6 +142,41 @@
 		Notice that there is another kind of attack: a miner fake on transactions it have mined out (only change the content of the transaction but the PrevHash, PoW are correct). Up to now, we assume that 
 		our miner will only put the transactions permitted by his own UTXOSet onto his blockchain. In this setting, this attack will not be raised so we cannot handle this so far. We may fix this problem in Part2. 
 
+		\section{Part2: Improvements}
+		\subsection{Merkel Tree}
+		We change the structure of a block, and set the header of block to be the root of merkel tree built from transactions in it.
+		When the block is printed out in terminal, the tree will also be printed out like below:
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.9\textwidth]{./Merkel-Tree.png}
+			\caption{figure for section 2}
+		\end{figure}
+		\subsection{Dynamic List of Miner}
+		We add two grpc protocols to achieve this. First each miner maintains a list of address which it can communicate with.
+		When a miner is added, it needs to know the address of at least one miner. This is achieved in function `GetAddrList'. Then it will call these existing miners to 
+		get their address list and set its own list to be the union of these lists. After this, it will send its own address to the address in its own list
+		to let these miners add its address to their list. This is achieved in function `UpdateAddrList'.
+		\subsection{Disable the attack of fake transactions}
+		In the Attack and Defense part we mentioned that we assume the miner will not include transactions that can not be done in its own UTXO set.\\
+		Now we remove the assumption. \\
+		When a miner receives a block, we need to simulate the transactions of incoming block in its own UTXO set. If one of the transaction cannot be done, then 
+		we will undo the previous simulated transactions and reject the block. So is for the case when miner gets a chain from other miners, but in this case we will first 
+		undo the blocks different from the incoming blockchain, then simulate the different part of incoming chain, if simulation fails (one transaction cannot be done), then we
+		need to undo the simulated blocks and redo the differnet blocks of my own chain.
+		\subsection{Exponential search for faster blockchain merge}
+		In part1, when there is conflict of blockchain, the miner with shorter chain will fetch the whole longer chain from other miner. This can be very inefficient 
+		when the blockchain is very long and two chain differs by a small fraction (say one is of length 10000002 and the other is 10000000). A natural idea is to 
+		search for the first different position of two chain and only transfer the different part. Using exponential search in class, this can be done efficiently.
+		\\
+		Suppose I am the miner with shorter blockchain and I received a block with ID larger than my length, then I will send an request to the owner of
+		received block to fetch block[my\_length - 1], then compare it with my block[my\_length - 1]. If they don't match, I will call the owner again and fetch block[my\_length - 3],
+		then compare it with my block[my\_length - 3] and so on until I the two matches. In the i-th time we fetch block[my\_length - $2^{i-1}$].
+		\\One example:
+		\begin{figure}[htbp]
+			\centering
+			\includegraphics[width=0.9\textwidth]{./Exponential-search.png}
+			\caption{figure for section 2}
+		\end{figure}
 		%\cite{}
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		% Begin edit from here

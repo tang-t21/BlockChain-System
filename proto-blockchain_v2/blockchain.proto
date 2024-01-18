@@ -1,0 +1,69 @@
+syntax = "proto3";
+option go_package = "./;proto";
+
+package proto;
+
+message Transaction {
+  bytes Stx = 1;
+}
+
+message Block {
+  bytes Sblock = 1;
+  string Addr = 2 ;
+} 
+
+message response {
+  string Result = 1;
+}
+
+message ChainRequest{
+  string Request = 1;
+}
+
+message UtxoRequest{
+  string Request = 1;
+}
+
+message Chain{
+  bytes Schain = 1;
+}
+
+message ProbeBlock{
+  bytes Sprobeblock=1;
+}
+
+message Utxo{
+  bytes SUtxo = 1;
+}
+
+message MultipleBlocksRequest{
+  int32 BlockId = 1;
+}
+
+message ProbeBlockRequest{
+  int32 BlockId = 1;
+}
+
+message AddrRequest{
+  string Request = 1;
+}
+
+message UpdateAddrRequest{
+  string Address=1;
+}
+
+message AddrList{
+  repeated string AddressList = 1;
+}
+
+service BlockChain {
+  rpc GetTransaction(Transaction) returns (response);
+  rpc GetBlock(Block) returns (response);
+  rpc GetBlockChain(ChainRequest) returns (Chain);
+  rpc GetUtxoSet(UtxoRequest) returns (Utxo);
+  rpc GetMultipleBlocks(MultipleBlocksRequest) returns (Chain);
+  rpc GetOneBlockById(ProbeBlockRequest) returns (ProbeBlock);
+  rpc GetAddrList(AddrRequest) returns (AddrList);
+  rpc UpdateAddrList(UpdateAddrRequest) returns (response);
+}
+
