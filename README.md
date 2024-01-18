@@ -1,6 +1,7 @@
 # Distributed Sys Project2
 
 **Final report is in `blockchain_v2/report/`.**
+`blockchain_v2` contains the code of part2 version.
 
 ## How to run miner and client in Part1
 
